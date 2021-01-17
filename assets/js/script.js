@@ -6,7 +6,6 @@ var questionsEl = document.querySelector('#question');
 var solutionsEl = document.querySelector('#answers')
 var timeSpanEl = document.querySelector("#timer");
 var introEl = document.querySelector("#intro");
-let solutionsDiv = document.querySelector("#answers"); //edit
 var resultsEl = document.querySelector("#results");
 var highScores = document.querySelector("#highScores");
 var clearHighscoresBtn = document.querySelector("#clearHighscoresBtn");
@@ -184,10 +183,10 @@ function displayResult(solution) {
 
 function removeQuestionsButtons() {
     questionsEl.textContent = "";
-    var child = solutionsDiv.lastElementChild;
+    var child = solutionsEl.lastElementChild;
     while (child) {
-      solutionsDiv.removeChild(child);
-      child = solutionsDiv.lastElementChild;
+      solutionsEl.removeChild(child);
+      child = solutionsEl.lastElementChild;
     }
 };
 
@@ -391,7 +390,7 @@ function clearHighscores() {
 
 ////////////////////// Event Listeners /////////////////////
 startBtnEl.addEventListener("click", startQuiz);
-solutionsDiv.addEventListener("click", answersClicked);
+solutionsEl.addEventListener("click", answersClicked);
 submitScore.addEventListener("click", inputHighscores);
 clearHighscoresBtn.addEventListener("click", clearHighscores);
 $("#staticBackdrop").on("shown.bs.modal", function (e) {
