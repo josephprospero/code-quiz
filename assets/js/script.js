@@ -115,72 +115,71 @@ function showQuestion() {
     questionsEl.textContent = questionObjArr[questionTracker].question;
     var indexArray = [];
     for (i = 0; i < questionObjArr[questionTracker].choices.length; i++) {
-      var questionBtn = document.createElement("button");
-      questionBtn.setAttribute("type", "button");
-      questionBtn.setAttribute("class", "list-group-item list-group-item-action list-group-item-info mt-1 answerButton");
-      questionBtn.setAttribute("data-index", i);
-      if (i === 0) {
-        questionBtn.setAttribute("correct", "yes");
-      } else {
-        questionBtn.setAttribute("correct", "no");
-      }
-      questionBtn.textContent = questionObjArr[questionTracker].choices[i];
-      solutionsEl.append(questionBtn);
-      indexArray.push(i);
+    var questionBtn = document.createElement("button");
+        questionBtn.setAttribute("type", "button");
+        questionBtn.setAttribute("class", "list-group-item list-group-item-action list-group-item-info mt-1 answerButton");
+        questionBtn.setAttribute("data-index", i);
+        if (i === 0) {
+            questionBtn.setAttribute("correct", "yes");
+        } else {
+            questionBtn.setAttribute("correct", "no");
+        }
+        questionBtn.textContent = questionObjArr[questionTracker].choices[i];
+        solutionsEl.append(questionBtn);
+        indexArray.push(i);
     }
   
     solutionsEl.childNodes.forEach(function (child) {
-      var rndIndex = Math.floor(Math.random() * indexArray.length);
-      solutionsEl.append(solutionsEl.children[rndIndex]);
-      indexArray.splice(rndIndex, 1);
+        var rndIndex = Math.floor(Math.random() * indexArray.length);
+        solutionsEl.append(solutionsEl.children[rndIndex]);
+        indexArray.splice(rndIndex, 1);
     });
 };
 
 function answersClicked(event) {
     if (event.target.matches("button")) {
-      var index = parseInt(event.target.getAttribute("data-index"));
-      var timeInterval = 1000;
-      disableQuestions();
-      if (event.target.getAttribute("correct") === "yes") {
-        displayResult(true);
-        correctAnswers++;
-      } else {
-        timePenalty += 5;
-        clearInterval(time);
-        time = setInterval(timer, 1000);
-        displayResult(false);
-      }
-      questionTracker++;
+        var index = parseInt(event.target.getAttribute("data-index"));
+        var timeInterval = 1000;
+        disableQuestions();
+        if (event.target.getAttribute("correct") === "yes") {
+            displayResult(true);
+            correctAnswers++;
+        } else {
+            timePenalty += 5;
+            clearInterval(time);
+            time = setInterval(timer, 1000);
+            displayResult(false);
+        }
+        questionTracker++;
   
-      if (questionTracker === questionObjArr.length) {
-        timeInterval = 5000;
-        gameOver("questions_done");
-      } else {
-        setTimeout(removeQuestionsButtons, 1000);
-        setTimeout(showQuestion, 1001);
-      }
+        if (questionTracker === questionObjArr.length) {
+            timeInterval = 5000;
+            gameOver("questions_done");
+        } else {
+            setTimeout(removeQuestionsButtons, 1000);
+            setTimeout(showQuestion, 1001);
+        }
   
-      setTimeout(function () {
-        resultsEl.style.display = "none";
-      }, timeInterval);
+        setTimeout(function () {
+            resultsEl.style.display = "none";
+        }, timeInterval);
     }
 };
 
 function displayResult(solution) {
     if (solution) {
-  
-      resultsEl.setAttribute("class","alert alert-success mt-0 mb-0 pt-0 pb-0 text-center");
-      resultsEl.innerHTML = "<strong>Correct!</strong> Nice job.";
-      resultsEl.style.display = "block";
+        resultsEl.setAttribute("class","alert alert-success mt-0 mb-0 pt-0 pb-0 text-center");
+        resultsEl.innerHTML = "<strong>Correct!</strong> Nice job.";
+        resultsEl.style.display = "block";
     } else {
-      resultsEl.setAttribute("class","alert alert-danger mt-0 mb-0 pt-0 pb-0 text-center");
-      resultsEl.innerHTML ="<strong>That was incorrect.</strong> It's alright, maybe you'll get the next one.";
-      resultsEl.style.display = "block";
-      timeSpanEl.style.color = "red";
-      setTimeout(function () {
-        timeSpanEl.style.color = "black";
-      }, 1000);
-    }
+        resultsEl.setAttribute("class","alert alert-danger mt-0 mb-0 pt-0 pb-0 text-center");
+        resultsEl.innerHTML ="<strong>That was incorrect.</strong> It's alright, maybe you'll get the next one.";
+        resultsEl.style.display = "block";
+        timeSpanEl.style.color = "red";
+        setTimeout(function () {
+            timeSpanEl.style.color = "black";
+        }, 1000);
+    };
 };
 
 function removeQuestionsButtons() {
